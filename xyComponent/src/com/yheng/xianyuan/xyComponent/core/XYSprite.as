@@ -1,12 +1,12 @@
 package com.yheng.xianyuan.xyComponent.core
 {
+	import com.codeTooth.actionscript.lang.errors.AbstractError;
+	import com.codeTooth.actionscript.lang.exceptions.UnsupportedException;
 	import com.codeTooth.actionscript.lang.utils.destroy.IDestroy;
 	import com.yheng.xianyuan.xyComponent.util.ListenerHandler;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
-	import com.codeTooth.actionscript.lang.exceptions.UnsupportedException;
-	import com.codeTooth.actionscript.lang.errors.AbstractError;
 	
 	public class XYSprite extends Sprite implements IDestroy
 	{
@@ -238,6 +238,14 @@ package com.yheng.xianyuan.xyComponent.core
 			return super.addChild(child);
 		}
 		
+		protected function addChildSuperEx(child:DisplayObject):void
+		{
+			if(child.parent != this)
+			{
+				addChildSuper(child);
+			}
+		}
+		
 		protected function addChildAtSuper(child:DisplayObject, index:int):DisplayObject
 		{
 			return super.addChildAt(child, index);
@@ -246,6 +254,14 @@ package com.yheng.xianyuan.xyComponent.core
 		protected function removeChildSuper(child:DisplayObject):DisplayObject
 		{
 			return super.removeChild(child);
+		}
+		
+		protected function removeChildSuperEx(child:DisplayObject):void
+		{
+			if(child.parent == this)
+			{
+				removeChildSuper(child);
+			}
 		}
 		
 		protected function removeChildAtSuper(index:int):DisplayObject
