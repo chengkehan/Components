@@ -18,6 +18,8 @@ package
 			_dropDown.getDownButton().setOverSkin(new BoxSimple(0x0099FF, .6, 20, 20));
 			_dropDown.getDownButton().setDownSkin(new BoxSimple(0x0099FF, .2, 20, 20));
 			_dropDown.getDownButton().setDisabledSkin(new BoxSimple(0x666666, .4, 20, 20));
+			
+			_dropDown.getList().setBackground(new BoxSimple(0x000000, .2));
 		}
 	}
 }
