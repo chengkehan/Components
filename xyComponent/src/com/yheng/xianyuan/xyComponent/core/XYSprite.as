@@ -1,6 +1,7 @@
 package com.yheng.xianyuan.xyComponent.core
 {
 	import com.codeTooth.actionscript.lang.errors.AbstractError;
+	import com.codeTooth.actionscript.lang.exceptions.IllegalOperationException;
 	import com.codeTooth.actionscript.lang.exceptions.UnsupportedException;
 	import com.codeTooth.actionscript.lang.utils.destroy.IDestroy;
 	import com.yheng.xianyuan.xyComponent.util.ListenerHandler;
@@ -12,11 +13,16 @@ package com.yheng.xianyuan.xyComponent.core
 	{
 		public function XYSprite()
 		{
+			if(!XYComponent.internal_xyComponent::checkLegal())
+			{
+				throw new IllegalOperationException("Please invoke XYComponent::initialize first.");
+			}
+			
 			tabChildrenSuper = false;
 			tabEnabledSuper = false;
 			initializeListener();
 		}
-
+		
 		//------------------------------------------------------------------------------------------------------------------------------
 		// Enabled
 		//------------------------------------------------------------------------------------------------------------------------------

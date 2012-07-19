@@ -1,9 +1,12 @@
 package com.yheng.xianyuan.xyComponent.control
 {
+	import com.codeTooth.actionscript.lang.utils.destroy.DestroyUtil;
+	import com.yheng.xianyuan.xyComponent.core.XYComponent;
 	import com.yheng.xianyuan.xyComponent.core.XYSprite;
 	import com.yheng.xianyuan.xyComponent.data.IDataProvider;
 	
 	import flash.events.MouseEvent;
+	import flash.geom.Rectangle;
 	
 	public class DropDownListBase extends XYSprite
 	{
@@ -13,9 +16,19 @@ package com.yheng.xianyuan.xyComponent.control
 		
 		public function DropDownListBase()
 		{
+			_width = 100;
+			
 			_list = new List();
+			
 			_down = new Button();
 			_down.addEventListener(MouseEvent.CLICK, downClickHandler);
+			_down.width = _width;
+			addChildSuper(_down);
+		}
+		
+		public function getDownButton():Button
+		{
+			return _down;
 		}
 		
 		public function getList():List
@@ -25,7 +38,12 @@ package com.yheng.xianyuan.xyComponent.control
 		
 		override public function destroy():void
 		{
-			_list = null;
+			if(_list != null)
+			{
+				DestroyUtil.removeChild(_list, XYComponent.getPopUpContainer());
+				_list.destroy();
+				_list = null;
+			}
 			_down = null;
 			super.destroy();
 		}
@@ -37,17 +55,19 @@ package com.yheng.xianyuan.xyComponent.control
 				var data:IDataProvider = _list.getDataProvider();
 				if(data != null && data.length != 0)
 				{
-					addChildSuperEx(_list);
-					_list.y = _down.height;
+					DestroyUtil.addChild(_list, XYComponent.getPopUpContainer());
+					var rect:Rectangle = getBounds(XYComponent.getPopUpContainer());
+					_list.x = rect.x;
+					_list.y = rect.y + rect.height;
 				}
 				else
 				{
-					removeChildSuperEx(_list);
+					DestroyUtil.removeChild(_list, XYComponent.getPopUpContainer());
 				}
 			}
 			else
 			{
-				removeChildSuperEx(_list);
+				DestroyUtil.removeChild(_list, XYComponent.getPopUpContainer());
 			}
 		}
 	}

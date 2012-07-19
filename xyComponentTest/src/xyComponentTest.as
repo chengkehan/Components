@@ -1,5 +1,7 @@
 package
 {
+	import com.yheng.xianyuan.xyComponent.core.XYComponent;
+	
 	import flash.display.Sprite;
 	
 	[SWF(width="1000", height="700")]
@@ -7,6 +9,8 @@ package
 	{
 		public function xyComponentTest()
 		{
+			XYComponent.initialize(this);
+			
 //			addChild(new ButtonBaseTest());
 //			addChild(new ButtonTest());
 //			addChild(new TextInputTest());
@@ -19,7 +23,8 @@ package
 //			addChild(new TextAreaTest());
 //			addChild(new DataProviderTest());
 //			addChild(new LabelItemRenderTest());
-			addChild(new ListTest());
+//			addChild(new ListTest());
+			addChild(new DropDownTest());
 		}
 	}
 }
