@@ -15,15 +15,5 @@ package
 		{
 			return new LabelItemRender2();
 		}
-		
-		public function createOverObject():DisplayObject
-		{
-			return null;
-		}
-		
-		public function createDownObject():DisplayObject
-		{
-			return null;
-		}
 	}
 }

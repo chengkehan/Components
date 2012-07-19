@@ -28,27 +28,19 @@ package com.yheng.xianyuan.xyComponent.control
 		
 		private var _items:Vector.<ItemRenderBase> = null;
 		
-		private var _itemsStateContainer:Sprite = null;
-		
 		private var _itemsContainer:DisplayObjectContainer = null;
 		
 		private var _scrollBar:VScrollBar = null;
 		
 		private var _mask:Box = null;
 		
-		private var _itemMouseDown:DisplayObject = null;
-		
-		private var _itemMouseOver:DisplayObject = null;
-		
 		public function List()
 		{
 			_width =  180;
 			_height = 180;
 			_items = new Vector.<ItemRenderBase>();
-			_itemsStateContainer = new Sprite();
 			_itemsContainer = new Sprite();
 			_itemRenderFactory = new LabelItemRenderFactory();
-			addChildSuper(_itemsStateContainer);
 			addChildSuper(_itemsContainer);
 			
 			_scrollBar = new VScrollBar();
@@ -62,9 +54,6 @@ package com.yheng.xianyuan.xyComponent.control
 			_mask.height = _height;
 			addChildSuper(_mask);
 			_itemsContainer.mask = _mask;
-			
-			_itemsContainer.addEventListener(MouseEvent.MOUSE_MOVE, itemsContainerMouseMoveHandler);
-			_itemsContainer.addEventListener(MouseEvent.MOUSE_DOWN, itemsContainerMouseDownHandler);
 		}
 		
 		public function getScrollBar():ScrollBarBase
@@ -187,16 +176,8 @@ package com.yheng.xianyuan.xyComponent.control
 				_scrollBar = null;
 			}
 			
-			DestroyUtil.removeChild(_itemMouseDown, _itemsStateContainer);
-			_itemMouseDown = null;
-			
-			DestroyUtil.removeChild(_itemMouseOver, _itemsStateContainer);
-			_itemMouseOver = null;
-			
 			if(_itemsContainer != null)
 			{
-				_itemsContainer.removeEventListener(MouseEvent.MOUSE_MOVE, itemsContainerMouseMoveHandler);
-				_itemsContainer.removeEventListener(MouseEvent.MOUSE_DOWN, itemsContainerMouseDownHandler);
 				_itemsContainer.mask = null;
 				_itemsContainer = null;
 			}
@@ -233,7 +214,6 @@ package com.yheng.xianyuan.xyComponent.control
 		private function set itemsContainerY(value:Number):void
 		{
 			_itemsContainer.y = value;
-			_itemsStateContainer.y = value;
 		}
 		
 		private function get itemsContainerY():Number
@@ -360,16 +340,6 @@ package com.yheng.xianyuan.xyComponent.control
 			item.setData(itemData);
 			
 			return item;
-		}
-		
-		private function itemsContainerMouseDownHandler(event:MouseEvent):void
-		{
-			
-		}
-		
-		private function itemsContainerMouseMoveHandler(event:MouseEvent):void
-		{
-			
 		}
 		
 		private function disposeItems():void
