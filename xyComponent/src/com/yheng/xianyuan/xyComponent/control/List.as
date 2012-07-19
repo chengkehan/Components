@@ -86,12 +86,7 @@ package com.yheng.xianyuan.xyComponent.control
 					_dataProvider.addEventListener(DataProviderEvent.REMOVE, dataProviderRemoveHandler);
 					_dataProvider.addEventListener(DataProviderEvent.UPDATE, dataProviderUpdateHandler);
 					
-					var dataSize:int = _dataProvider.length;
-					for (var i:int = 0; i < dataSize; i++) 
-					{
-						_items.push(createItem(_dataProvider.get(i)));
-					}
-					
+					createItems();
 					refreshAll();
 				}
 			}
@@ -131,7 +126,11 @@ package com.yheng.xianyuan.xyComponent.control
 			
 			if(value != _itemRenderFactory)
 			{
-				
+				disposeItems();
+				refreshItemsContainerScrollPos(0);
+				_itemRenderFactory = value;
+				createItems();
+				refreshAll();
 			}
 		}
 		
@@ -188,23 +187,11 @@ package com.yheng.xianyuan.xyComponent.control
 				_scrollBar = null;
 			}
 			
-			if(_itemMouseDown != null)
-			{
-				if(_itemMouseDown.parent == _itemsStateContainer)
-				{
-					_itemsStateContainer.removeChild(_itemMouseDown);
-				}
-				_itemMouseDown = null;
-			}
+			DestroyUtil.removeChild(_itemMouseDown, _itemsStateContainer);
+			_itemMouseDown = null;
 			
-			if(_itemMouseOver != null)
-			{
-				if(_itemMouseOver.parent == _itemsStateContainer)
-				{
-					_itemsStateContainer.removeChild(_itemMouseOver);
-				}
-				_itemMouseOver = null;
-			}
+			DestroyUtil.removeChild(_itemMouseOver, _itemsStateContainer);
+			_itemMouseOver = null;
 			
 			if(_itemsContainer != null)
 			{
@@ -352,6 +339,15 @@ package com.yheng.xianyuan.xyComponent.control
 		private function dataProviderUpdateHandler(event:DataProviderEvent):void
 		{
 			_items[event.index].setData(event.data);
+		}
+		
+		private function createItems():void
+		{
+			var dataSize:int = _dataProvider.length;
+			for (var i:int = 0; i < dataSize; i++) 
+			{
+				_items.push(createItem(_dataProvider.get(i)));
+			}
 		}
 		
 		private function createItem(itemData:Object):ItemRenderBase

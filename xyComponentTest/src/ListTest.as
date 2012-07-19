@@ -1,5 +1,6 @@
 package
 {
+	import com.codeTooth.actionscript.display.BoxSimple;
 	import com.yheng.xianyuan.xyComponent.control.LabelItemRenderData;
 	import com.yheng.xianyuan.xyComponent.control.List;
 	import com.yheng.xianyuan.xyComponent.data.DataProvider;
@@ -8,7 +9,6 @@ package
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import com.codeTooth.actionscript.display.BoxSimple;
 	
 	public class ListTest extends Sprite
 	{
@@ -86,9 +86,12 @@ package
 //				_list.getDataProvider().update(index, data);
 				
 				// Add
-				_list.getDataProvider().push(new LabelItemRenderData("T", 12, 0xFFFFFF * Math.random(), true, 0xFFFFFF * Math.random()));
+//				_list.getDataProvider().push(new LabelItemRenderData("T", 12, 0xFFFFFF * Math.random(), true, 0xFFFFFF * Math.random()));
 				// Remove
 //				_list.getDataProvider().pop();
+				
+				// ItemRenderFactory
+				_list.setItemRenderFactory(new LabelItemRenderFactory2());
 			}
 		}
 		
