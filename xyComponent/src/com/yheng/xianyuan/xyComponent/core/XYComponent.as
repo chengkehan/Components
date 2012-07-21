@@ -22,10 +22,5 @@ package com.yheng.xianyuan.xyComponent.core
 		{
 			return _popUpContainer;
 		}
-		
-		internal_xyComponent static function checkLegal():Boolean
-		{
-			return _popUpContainer != null;
-		}
 	}
 }

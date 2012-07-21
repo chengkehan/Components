@@ -8,19 +8,26 @@ package com.yheng.xianyuan.xyComponent.core
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	
 	public class XYSprite extends Sprite implements IDestroy
 	{
 		public function XYSprite()
 		{
-			if(!XYComponent.internal_xyComponent::checkLegal())
-			{
-				throw new IllegalOperationException("Please invoke XYComponent::initialize first.");
-			}
-			
 			tabChildrenSuper = false;
 			tabEnabledSuper = false;
 			initializeListener();
+			
+			if(XYComponent.getPopUpContainer() == null)
+			{
+				addEventListener(Event.ADDED_TO_STAGE, addToStageHandler);
+			}
+		}
+		
+		private function addToStageHandler(event:Event):void
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, addToStageHandler);
+			XYComponent.initialize(stage);
 		}
 		
 		//------------------------------------------------------------------------------------------------------------------------------
